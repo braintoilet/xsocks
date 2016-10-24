@@ -2,16 +2,12 @@
 #include <map>
 #include <string>
 #include "Tunnel.h"
-#include "th3rd/dns.h"
-#include "socks/SocksMgr.h"
+#include "dns.h"
+#include "SocksMgr.h"
 
 using namespace std;
 
-#ifdef LINUX
-typedef map<string,string> CMD_MAP;
-#else
 typedef map<wstring,wstring> CMD_MAP;
-#endif
 
 void Version()
 {
@@ -37,11 +33,8 @@ void Usage()
 	printf("           xsocks -r 192.168.1.10:8085 -u root -p 123456               \n");
 	printf("           xsocks -s 192.168.1.11:8085 -r 192.168.1.10:8086          \n\n");
 }
-#ifdef LINUX
-void LoadCommand(int argc, char* argv[] ,CMD_MAP& map)
-#else
+
 void LoadCommand(int argc, _TCHAR* argv[] ,CMD_MAP& map)
-#endif
 {
 	for(int i = 1 ; i < argc ; i++)
 	{
@@ -59,19 +52,14 @@ void LoadCommand(int argc, _TCHAR* argv[] ,CMD_MAP& map)
 	}
 }
 
-#ifdef LINUX
-int main(int argc, char* argv[])
-{
-	string user = _T("");
-	string pwd = _T("");
-#else
 int _tmain(int argc, _TCHAR* argv[])
 {
+	string sshHost = "";
+
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2,2),&wsaData);
 	wstring user = _T("");
 	wstring pwd = _T("");
-#endif
 
 	CMD_MAP cmd;
 
@@ -80,7 +68,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	do 
 	{
-		//获取验证账号和密码
+		//Lassen Sie überprüfen das Konto und Kennwort
 
 		CMD_MAP::iterator it = cmd.find(_T("-p"));
 		if ( it != cmd.end())
@@ -94,24 +82,15 @@ int _tmain(int argc, _TCHAR* argv[])
 			CSocksMgr::GetInstanceRef().SetAuth(user.c_str(),pwd.c_str());
 
 
-		//没有参数
+		//Keine Parameter
 		if (cmd.size() == 0)
 		{
 			Usage();
 			ret = TRUE;
 			break;
 		}
-#ifdef LINUX
-// 		infoLog("Initialize DNS client....");
-// 		if ( !DNS::InitDns() )
-// 		{
-// 			errorLog("Initialize DNS client faild!");
-// 			ret = TRUE;
-// 			break;
-// 		}
-#endif
 
-		//反弹模式
+		//Reverse-Modus
 		it = cmd.find(_T("-r"));
 
 		if (it != cmd.end())
@@ -152,7 +131,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 		}
 
-		//隧道模式
+		//Tunnelmodus
 		it = cmd.find(_T("-t"));
 
 		if (it != cmd.end())
@@ -175,7 +154,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 		}
 
-		//正向模式
+		//Forward Modus
 		it = cmd.find(_T("-l"));
 
 		if (it != cmd.end())

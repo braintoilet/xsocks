@@ -3,13 +3,8 @@
 #include <map>
 #include <iostream>
 
-#include "socks/SocksParser.h"
-#include "common/public.h"
-
-#ifdef LINUX
-	#define INVALID_SOCKET -1
-#else
-#endif
+#include "SocksParser.h"
+#include "public.h"
 
 typedef std::set<int> SOCKET_SET;
 typedef std::map<int,int> NEXUS_MAP;

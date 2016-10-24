@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,19 +14,21 @@
     <ProjectGuid>{4DD6F1C4-16CE-4B5B-AFF5-2F6C2056340F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>xsocks</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -77,31 +79,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="common\CommonDefines.h" />
-    <ClInclude Include="common\Socket.h" />
-    <ClInclude Include="common\public.h" />
-    <ClInclude Include="socks\SocksMgr.h" />
-    <ClInclude Include="socks\SocksParser.h" />
+    <ClInclude Include="CommonDefines.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Socket.h" />
+    <ClInclude Include="public.h" />
+    <ClInclude Include="SocksMgr.h" />
+    <ClInclude Include="SocksParser.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="dns.h" />
     <ClInclude Include="Tunnel.h" />
-    <ClInclude Include="utils\AutoCleanup.h" />
-    <ClInclude Include="utils\ods.h" />
-    <ClInclude Include="utils\tstring.h" />
+    <ClInclude Include="AutoCleanup.h" />
+    <ClInclude Include="ods.h" />
+    <ClInclude Include="tstring.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="socks\SocksMgr.cpp" />
-    <ClCompile Include="socks\SocksParser.cpp" />
+    <ClCompile Include="SocksMgr.cpp" />
+    <ClCompile Include="SocksParser.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="dns.cpp" />
     <ClCompile Include="Tunnel.cpp" />
-    <ClCompile Include="utils\ods.cpp" />
-    <ClCompile Include="utils\tstring.cpp" />
+    <ClCompile Include="ods.cpp" />
+    <ClCompile Include="tstring.cpp" />
     <ClCompile Include="xsocks.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="xsocks.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
